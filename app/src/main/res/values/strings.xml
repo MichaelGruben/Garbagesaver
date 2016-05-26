@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Müll-App</string>
+    <string name="preference_file_key">garbagesaver_data</string>
+</resources>
