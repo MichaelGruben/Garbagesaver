@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,59 +14,148 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Insgesamt geleert:" />
+        android:text="Leerungen in diesem Jahr"
+        android:textSize="15px"/>
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <TextView android:id="@+id/garbage_sum"
+        android:gravity="right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30px"
+        android:text="0"/>
+    <TextView
+        android:gravity="right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20px"
+        android:text="/26"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:gravity="left"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button android:id="@+id/erase_minus"
-            android:layout_width="50px"
-            android:layout_height="50px"
-            android:text="-"
-            android:onClick="change_counter_erased_minus"/>
+        <TextView
+            android:gravity="left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="... davon geleert"
+            android:textSize="15px"/>
+        <TextView
+            android:layout_width="10px"
+            android:layout_height="wrap_content" />
        <TextView android:id="@+id/garbage_erased"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:textSize="30px"
+           android:textSize="20px"
            android:text="0"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30px"
+            android:textSize="20px"
             android:text="/26"/>
-        <Button android:id="@+id/erase_plus"
-            android:layout_width="50px"
-            android:layout_height="50px"
-            android:text="+"
-            android:onClick="change_counter_erased_plus"/>
     </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Insgesamt gespart:" />
     <LinearLayout
+        android:gravity="left"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button android:id="@+id/save_minus"
-            android:layout_width="50px"
-            android:layout_height="50px"
-            android:text="-"
-            android:onClick="change_counter_saved_minus"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="... davon gespart"
+            android:textSize="15px"/>
+        <TextView
+            android:layout_width="10px"
+            android:layout_height="wrap_content" />
         <TextView android:id="@+id/garbage_saved"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30px"
+            android:textSize="20px"
             android:text="0"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30px"
+            android:textSize="20px"
             android:text="/8"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Geld gespart:  "
+            android:textSize="20px"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="30px"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="€"
+            android:textSize="20px"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_weight="100"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10px"
+            android:text="Nächste Leerung am: "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15px"
+            android:text="01.01.2016"></TextView>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15px"
+        android:text="Letzte Leerung"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <Button android:id="@+id/erase_plus"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:text="geleert"
+        android:onClick="change_counter_erased_plus"/>
         <Button android:id="@+id/save_plus"
-            android:layout_width="50px"
-            android:layout_height="50px"
-            android:text="+"
+            android:layout_width="100px"
+            android:layout_height="40px"
+            android:text="gespart"
             android:onClick="change_counter_saved_plus"/>
     </LinearLayout>
+    <Button android:id="@+id/counter_minus"
+        android:layout_width="200px"
+        android:layout_height="40px"
+        android:text="letzte Wahl rückgängig"
+        android:onClick="change_counter_minus"/>
 </LinearLayout>
