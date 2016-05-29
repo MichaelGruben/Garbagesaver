@@ -115,7 +115,7 @@
             android:layout_height="wrap_content"
             android:text="Geld gespart:  "
             android:textSize="20px"/>
-        <TextView
+        <TextView android:id="@+id/saved_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
@@ -149,29 +149,47 @@
         android:layout_width="wrap_content"
         android:layout_weight="1"
         android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="10px"
+        android:text="Einstellung für den: "/>
+    <TextView android:id="@+id/setting_for"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textSize="15px"
-        android:text="Letzte Leerung"/>
+        android:text="01.01.2016"/>
+        </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
     <Button android:id="@+id/erase_plus"
-        android:layout_width="100px"
-        android:layout_height="40px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="geleert"
         android:onClick="change_counter_erased_plus"/>
-        <Button android:id="@+id/save_plus"
-            android:layout_width="100px"
-            android:layout_height="40px"
-            android:text="gespart"
-            android:onClick="change_counter_saved_plus"/>
+    <TextView
+        android:layout_width="10px"
+        android:layout_weight="1"
+        android:layout_height="wrap_content" />
+    <Button android:id="@+id/save_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="gespart"
+        android:onClick="change_counter_saved_plus"/>
     </LinearLayout>
+    <TextView
+        android:layout_width="10px"
+        android:layout_weight="1"
+        android:layout_height="wrap_content" />
     <Button android:id="@+id/counter_minus"
-        android:layout_width="200px"
-        android:layout_height="40px"
-        android:text="letzte Wahl rückgängig"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rückgängig"
         android:onClick="change_counter_minus"/>
 </LinearLayout>
