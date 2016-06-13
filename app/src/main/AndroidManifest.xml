@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.it_garten.micha.garbagesaver">
+    package="de.it_garten.micha.garbagesaver"
+    android:versionCode="2"
+    android:versionName="Braune Tonne">
 
     <application
         android:allowBackup="true"

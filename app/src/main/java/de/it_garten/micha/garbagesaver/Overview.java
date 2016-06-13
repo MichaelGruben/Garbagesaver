@@ -59,68 +59,80 @@ public class Overview extends AppCompatActivity {
     SharedPreferences sharedPref;
 
     int lastDateIndex=0;
-    int lastSettingIndex=0;
+    int lastFreeIndex=0;
+    int lastEraseIndex=0;
 
-    String lastGarbageMethod="";
+    String lastGarbageMethod="undefined";
 
     String[] garbageDateSetting;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_overview);
+
         sharedPref=this.getPreferences(Context.MODE_PRIVATE);
         //Set garbage Dates in array and initialize garbageDateSetting
         garbageDates= new Date[dates.length];
         garbageDateSetting= new String[dates.length];
+        sharedPref.getAll();
+        SharedPreferences.Editor prefEditor=sharedPref.edit();
+        lastFreeIndex=sharedPref.getInt("lastFreeIndex",0);
         for (int i=0; i<dates.length; i++) {
             try{
                 garbageDates[i]=sdf.parse(dates[i]);
             } catch (java.text.ParseException e){
                 System.out.println("kann nicht parsen");
             }
-            garbageDateSetting[i]=sharedPref.getString(sdf.format(garbageDates[i]),"");
-            if(!garbageDateSetting[i].equals("")){
-                lastSettingIndex=i;
+            garbageDateSetting[i]=sharedPref.getString(sdf.format(garbageDates[i]),"undefined");
+            if(!garbageDateSetting[i].equals("undefined") && lastFreeIndex==0){
+                    lastFreeIndex = i;
             }
         }
-        sharedPref.getAll();
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_overview);
+        prefEditor.putInt("lastFreeIndex",lastFreeIndex);
+        prefEditor.apply();
 
         get_next_garbage_date();
 
-        TextView next_collect_date = (TextView) findViewById(R.id.next_collect_date);
-        next_collect_date.setText(String.valueOf(next_date));
+        set_text_to_field((TextView) findViewById(R.id.next_collect_date),String.valueOf(next_date));
+        set_text_to_field((TextView) findViewById(R.id.max_erase),String.valueOf(MAX_ERASE));
+        set_text_to_field((TextView) findViewById(R.id.max_garbage_sum), String.valueOf(MAX_ERASE));
+        set_text_to_field((TextView) findViewById(R.id.max_save), String.valueOf(MAX_SAVE));
+        erased_val = sharedPref.getInt("garbage_erased", 0);
+        set_text_to_field((TextView) findViewById(R.id.garbage_erased), String.valueOf(erased_val));
+        saved_val = sharedPref.getInt("garbage_saved", 0);
+        set_text_to_field((TextView) findViewById(R.id.garbage_saved), String.valueOf(saved_val));
 
-        TextView max_erase_text = (TextView) findViewById(R.id.max_erase);
-        max_erase_text.setText(String.valueOf(MAX_ERASE));
-
-        TextView max_garbage_sum_text = (TextView) findViewById(R.id.max_garbage_sum);
-        max_garbage_sum_text.setText(String.valueOf(MAX_ERASE));
-
-        TextView max_save_text = (TextView) findViewById(R.id.max_save);
-        max_save_text.setText(String.valueOf(MAX_SAVE));
-
-        TextView erased_counter = (TextView) findViewById(R.id.garbage_erased);
-        erased_val = sharedPref.getInt("garbage_erased",0);
-        erased_counter.setText(String.valueOf(erased_val));
-
-        TextView saved_counter = (TextView) findViewById(R.id.garbage_saved);
-        saved_val=sharedPref.getInt("garbage_saved",0);
-        saved_counter.setText(String.valueOf(saved_val));
 
         update_sum();
-        set_setting_for(lastSettingIndex);
+        set_setting_for_date(lastFreeIndex);
         set_button_state();
-        set_revert_action(sharedPref.getString(sdf.format(garbageDates[lastSettingIndex]),""));
+        if(lastFreeIndex>=0) {
+            set_revert_action_for_index(
+                    sharedPref.getString(
+                            sdf.format(garbageDates[lastFreeIndex]),
+                            "undefined"
+                    ),
+                    lastFreeIndex-1
+            );
+        } else {
+            set_revert_action_for_index("undefined",lastFreeIndex-1);
+        }
+    }
+
+    private void set_text_to_field(TextView object, String text){
+        object.setText(text);
     }
 
     //set the date for which a plus-action is going to
-    private void set_setting_for(int index){
+    private void set_setting_for_date(int index){
         TextView setting_for_text = (TextView) findViewById(R.id.setting_for);
-        if(index>=0) {
-            setting_for_text.setText(sdf.format(garbageDates[index]));
+        if(index>=0 && index<MAX_ERASE) {
+            set_text_to_field(setting_for_text,sdf.format(garbageDates[index]));
+        } else {
+            set_text_to_field(setting_for_text, "Das Ende des Jahres erreicht");
         }
     }
 
@@ -130,33 +142,37 @@ public class Overview extends AppCompatActivity {
         for (int i=0; i < garbageDates.length; i++){
             if (today<garbageDates[i].getTime()){
                 next_date= sdf.format(garbageDates[i]);
-                lastDateIndex=i-1;
+                lastEraseIndex=i;
                 break;
             }
         }
     }
 
     //set the revert button state
-    private void set_revert_action(String action){
+    private void set_revert_action_for_index(String action, int index){
+        TextView revert_for_text = (TextView) findViewById(R.id.revert_for);
         Button revert_action_button = (Button) findViewById(R.id.counter_minus);
-        if(lastSettingIndex<1){
-            revert_action_button.setText(" rückgängig machen nicht möglich");
+        if(index<0 && action.equals("undefined")){
+            set_text_to_field(revert_for_text,"Anfang des Jahres");
+            set_text_to_field(revert_action_button," rückgängig machen nicht möglich "+index);
             revert_action_button.setClickable(false);
             revert_action_button.setBackgroundColor(Color.rgb(200,100,100));
         } else {
+            if(index<0) index=0;
+            set_text_to_field(revert_for_text,sdf.format(garbageDates[index]));
             switch (action) {
                 case "erased":
-                    revert_action_button.setText("\"geleert\" rückgängig machen");
+                    revert_action_button.setText("\"geleert\" rückgängig machen "+index);
                     revert_action_button.setClickable(true);
                     revert_action_button.setBackgroundColor(Color.rgb(100, 200, 100));
                     break;
                 case "saved":
-                    revert_action_button.setText("\"gespart\" rückgängig machen");
+                    revert_action_button.setText("\"gespart\" rückgängig machen "+index);
                     revert_action_button.setClickable(true);
                     revert_action_button.setBackgroundColor(Color.rgb(100, 200, 100));
                     break;
                 default:
-                    revert_action_button.setText("undefinierter Status");
+                    revert_action_button.setText("undefinierter Status "+index);
                     revert_action_button.setClickable(false);
                     revert_action_button.setBackgroundColor(Color.rgb(200, 100, 100));
                     break;
@@ -182,7 +198,8 @@ public class Overview extends AppCompatActivity {
     private void set_button_state(){
         Button erase_plus_btn = (Button) findViewById(R.id.erase_plus);
         Button save_plus_btn = (Button) findViewById(R.id.save_plus);
-        boolean clickable=lastDateIndex>=lastSettingIndex;
+        lastFreeIndex=sharedPref.getInt("lastFreeIndex",0);
+        boolean clickable=lastEraseIndex>lastFreeIndex;
         TextView erased_counter = (TextView) findViewById(R.id.garbage_erased);
         erased_val=Integer.parseInt(erased_counter.getText().toString());
         TextView saved_counter = (TextView) findViewById(R.id.garbage_saved);
@@ -217,16 +234,18 @@ public class Overview extends AppCompatActivity {
         erased_val=Integer.parseInt(erased_counter.getText().toString())+1;
         if(erased_val<=MAX_ERASE && erased_val>=0) {
             erased_counter.setText(String.valueOf(erased_val));
-
+            lastFreeIndex=sharedPref.getInt("lastFreeIndex",0);
             SharedPreferences.Editor prefEditor=sharedPref.edit();
             prefEditor.putInt("garbage_erased",erased_val);
-            prefEditor.putString(sdf.format(garbageDates[lastSettingIndex]),"erased");
+            prefEditor.putString(sdf.format(garbageDates[lastFreeIndex]),"erased");
+            lastFreeIndex++;
+            prefEditor.putInt("lastFreeIndex",lastFreeIndex);
             prefEditor.apply();
+            set_revert_action_for_index("erased",lastFreeIndex-1);
             update_sum();
-            lastSettingIndex++;
-            set_revert_action("erased");
+            lastDateIndex++;
             set_button_state();
-            set_setting_for(lastSettingIndex);
+            set_setting_for_date(lastFreeIndex);
         }
     }
 
@@ -235,25 +254,28 @@ public class Overview extends AppCompatActivity {
         saved_val=Integer.parseInt(saved_counter.getText().toString())+1;
         if(saved_val<=MAX_SAVE && saved_val>=0) {
             saved_counter.setText(String.valueOf(saved_val));
+            lastFreeIndex=sharedPref.getInt("lastFreeIndex",0);
             SharedPreferences.Editor prefEditor=sharedPref.edit();
             prefEditor.putInt("garbage_saved",saved_val);
-            prefEditor.putString(sdf.format(garbageDates[lastSettingIndex]),"saved");
+            prefEditor.putString(sdf.format(garbageDates[lastFreeIndex]),"saved");
+            lastFreeIndex++;
+            prefEditor.putInt("lastFreeIndex",lastFreeIndex);
             prefEditor.apply();
+            set_revert_action_for_index("saved",lastFreeIndex-1);
             update_sum();
-            lastSettingIndex++;
-            set_revert_action("saved");
             set_button_state();
-            set_setting_for(lastSettingIndex);
+            lastDateIndex++;
+            set_setting_for_date(lastFreeIndex);
         }
     }
 
     public void change_counter_minus(View view){
         TextView counter;
         int val=0;
-
-        String method=lastGarbageMethod = sharedPref.getString(sdf.format(garbageDates[lastSettingIndex-1]),"");
+        lastFreeIndex=sharedPref.getInt("lastFreeIndex",0);
+        lastGarbageMethod= sharedPref.getString(sdf.format(garbageDates[lastFreeIndex]),"undefined");
         SharedPreferences.Editor prefEditor=sharedPref.edit();
-        if(method.equals("erased")) {
+        if(lastGarbageMethod.equals("erased")) {
             counter = (TextView) findViewById(R.id.garbage_erased);
             val=Integer.parseInt(counter.getText().toString())-1;
             if(val>MAX_ERASE || val<0) {
@@ -261,7 +283,7 @@ public class Overview extends AppCompatActivity {
             }
             counter.setText(String.valueOf(val));
             prefEditor.putInt("garbage_erased",val);
-        } else if (method.equals("saved")){
+        } else if (lastGarbageMethod.equals("saved")){
             counter = (TextView) findViewById(R.id.garbage_saved);
             val=Integer.parseInt(counter.getText().toString())-1;
             if(val>MAX_SAVE || val<0) {
@@ -271,15 +293,18 @@ public class Overview extends AppCompatActivity {
             prefEditor.putInt("garbage_saved",val);
         }
 
-        prefEditor.putString(sdf.format(garbageDates[lastSettingIndex]),"");
-        prefEditor.apply();
+        prefEditor.putString(sdf.format(garbageDates[lastFreeIndex]),"undefined");
+
 
         update_sum();
-        if(lastSettingIndex>0) {
-            lastSettingIndex--;
+        if(lastFreeIndex>0) {
+            lastFreeIndex--;
         }
-        set_setting_for(lastSettingIndex);
-        set_revert_action(sharedPref.getString(sdf.format(garbageDates[lastSettingIndex]),""));
+        set_revert_action_for_index(sharedPref.getString(sdf.format(garbageDates[lastFreeIndex]), "undefined"),lastFreeIndex);
+        prefEditor.putInt("lastFreeIndex",lastFreeIndex);
+        prefEditor.apply();
+        lastDateIndex--;
+        set_setting_for_date(lastFreeIndex);
         set_button_state();
     }
 }
