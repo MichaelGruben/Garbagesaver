@@ -109,16 +109,16 @@ public class Overview extends AppCompatActivity {
         update_sum();
         set_setting_for_date(lastFreeIndex);
         set_button_state();
-        if(lastFreeIndex>=0) {
+        if(lastFreeIndex>0) {
             set_revert_action_for_index(
                     sharedPref.getString(
-                            sdf.format(garbageDates[lastFreeIndex]),
+                            sdf.format(garbageDates[lastFreeIndex-1]),
                             "undefined"
                     ),
                     lastFreeIndex-1
             );
         } else {
-            set_revert_action_for_index("undefined",lastFreeIndex-1);
+            set_revert_action_for_index("undefined",lastFreeIndex);
         }
     }
 
@@ -152,9 +152,9 @@ public class Overview extends AppCompatActivity {
     private void set_revert_action_for_index(String action, int index){
         TextView revert_for_text = (TextView) findViewById(R.id.revert_for);
         Button revert_action_button = (Button) findViewById(R.id.counter_minus);
-        if(index<0 && action.equals("undefined")){
+        if(index<=0 && action.equals("undefined")){
             set_text_to_field(revert_for_text,"Anfang des Jahres");
-            set_text_to_field(revert_action_button," rückgängig machen nicht möglich "+index);
+            set_text_to_field(revert_action_button," rückgängig machen nicht möglich ");
             revert_action_button.setClickable(false);
             revert_action_button.setBackgroundColor(Color.rgb(200,100,100));
         } else {
@@ -162,17 +162,17 @@ public class Overview extends AppCompatActivity {
             set_text_to_field(revert_for_text,sdf.format(garbageDates[index]));
             switch (action) {
                 case "erased":
-                    revert_action_button.setText("\"geleert\" rückgängig machen "+index);
+                    revert_action_button.setText("\"geleert\" rückgängig machen ");
                     revert_action_button.setClickable(true);
                     revert_action_button.setBackgroundColor(Color.rgb(100, 200, 100));
                     break;
                 case "saved":
-                    revert_action_button.setText("\"gespart\" rückgängig machen "+index);
+                    revert_action_button.setText("\"gespart\" rückgängig machen ");
                     revert_action_button.setClickable(true);
                     revert_action_button.setBackgroundColor(Color.rgb(100, 200, 100));
                     break;
                 default:
-                    revert_action_button.setText("undefinierter Status "+index);
+                    revert_action_button.setText(" rückgängig machen nicht möglich ");
                     revert_action_button.setClickable(false);
                     revert_action_button.setBackgroundColor(Color.rgb(200, 100, 100));
                     break;
@@ -272,7 +272,11 @@ public class Overview extends AppCompatActivity {
     public void change_counter_minus(View view){
         TextView counter;
         int val=0;
+        lastDateIndex--;
         lastFreeIndex=sharedPref.getInt("lastFreeIndex",0);
+        if(lastFreeIndex>0) {
+            lastFreeIndex--;
+        }
         lastGarbageMethod= sharedPref.getString(sdf.format(garbageDates[lastFreeIndex]),"undefined");
         SharedPreferences.Editor prefEditor=sharedPref.edit();
         if(lastGarbageMethod.equals("erased")) {
@@ -297,14 +301,12 @@ public class Overview extends AppCompatActivity {
 
 
         update_sum();
-        if(lastFreeIndex>0) {
-            lastFreeIndex--;
-        }
-        set_revert_action_for_index(sharedPref.getString(sdf.format(garbageDates[lastFreeIndex]), "undefined"),lastFreeIndex);
         prefEditor.putInt("lastFreeIndex",lastFreeIndex);
         prefEditor.apply();
-        lastDateIndex--;
         set_setting_for_date(lastFreeIndex);
+        if(lastFreeIndex>0){
+        lastFreeIndex--;}
+        set_revert_action_for_index(sharedPref.getString(sdf.format(garbageDates[lastFreeIndex]), "undefined"),lastFreeIndex);
         set_button_state();
     }
 }
