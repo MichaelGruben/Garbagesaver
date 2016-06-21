@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/show_erase"
+        android:icon="@drawable/ic_action_document"
+        android:title="@string/show_erase"
+        android:visible="true"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/show_dates"
+        android:icon="@drawable/ic_action_alarm"
+        android:title="@string/show_garbage_dates"
+        android:visible="true"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/show_help"
+        android:icon="@drawable/ic_help"
+        android:title="@string/help"
+        android:visible="true"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/show_info"
+        android:icon="@drawable/ic_info"
+        android:title="@string/show_info"
+        android:visible="true"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:icon="@drawable/ic_settings"
+        android:visible="true"
+        app:showAsAction="never"
+        />
+</menu>

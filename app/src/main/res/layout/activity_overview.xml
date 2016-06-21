@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Leerungen in diesem Jahr"
-        android:textSize="15px"/>
+        android:textSize="14sp"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,19 +24,19 @@
         android:gravity="right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30px"
+        android:textSize="16sp"
         android:text="0"/>
     <TextView
         android:gravity="right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20px"
+        android:textSize="14sp"
         android:text="/"/>
     <TextView android:id="@+id/max_garbage_sum"
         android:gravity="right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20px"
+        android:textSize="14sp"
         android:text="0"/>
     </LinearLayout>
     <TextView
@@ -53,24 +53,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="... davon geleert"
-            android:textSize="15px"/>
+            android:textSize="14sp"/>
         <TextView
             android:layout_width="10px"
             android:layout_height="wrap_content" />
        <TextView android:id="@+id/garbage_erased"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:textSize="20px"
+           android:textSize="14sp"
            android:text="0"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20px"
+            android:textSize="14sp"
             android:text="/"/>
         <TextView android:id="@+id/max_erase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20px"
+            android:textSize="14sp"
             android:text="0"/>
     </LinearLayout>
     <LinearLayout
@@ -82,24 +82,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="... davon gespart"
-            android:textSize="15px"/>
+            android:textSize="14sp"/>
         <TextView
             android:layout_width="10px"
             android:layout_height="wrap_content" />
         <TextView android:id="@+id/garbage_saved"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20px"
+            android:textSize="14sp"
             android:text="0"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20px"
+            android:textSize="14sp"
             android:text="/"/>
         <TextView android:id="@+id/max_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20px"
+            android:textSize="14sp"
             android:text="0"/>
     </LinearLayout>
     <TextView
@@ -114,17 +114,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Geld gespart:  "
-            android:textSize="20px"/>
+            android:textSize="16sp"/>
         <TextView android:id="@+id/saved_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
-            android:textSize="30px"/>
+            android:textSize="16sp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="€"
-            android:textSize="20px"/>
+            android:textSize="16sp"/>
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
@@ -137,12 +137,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10px"
+            android:textSize="14sp"
             android:text="Nächste Leerung am: "/>
         <TextView android:id="@+id/next_collect_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15px"
+            android:textSize="14sp"
             android:text="01.01.2016"></TextView>
     </LinearLayout>
     <TextView
@@ -156,12 +156,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="10px"
+        android:textSize="14sp"
         android:text="Einstellung für den: "/>
     <TextView android:id="@+id/setting_for"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15px"
+        android:textSize="14sp"
         android:text="01.01.2016"/>
         </LinearLayout>
     <LinearLayout
@@ -194,12 +194,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10px"
+            android:textSize="14sp"
             android:text="Rückgängig für den: "/>
         <TextView android:id="@+id/revert_for"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15px"
+            android:textSize="14sp"
             android:text="01.01.2016"/>
     </LinearLayout>
     <Button android:id="@+id/counter_minus"

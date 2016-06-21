@@ -1,10 +1,15 @@
 package de.it_garten.micha.garbagesaver;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -68,11 +73,18 @@ public class Overview extends AppCompatActivity {
 
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview);
 
-        sharedPref=this.getPreferences(Context.MODE_PRIVATE);
+        sharedPref=getSharedPreferences("prefFile",Context.MODE_PRIVATE);
         //Set garbage Dates in array and initialize garbageDateSetting
         garbageDates= new Date[dates.length];
         garbageDateSetting= new String[dates.length];
@@ -308,5 +320,38 @@ public class Overview extends AppCompatActivity {
         lastFreeIndex--;}
         set_revert_action_for_index(sharedPref.getString(sdf.format(garbageDates[lastFreeIndex]), "undefined"),lastFreeIndex);
         set_button_state();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.show_erase:
+                System.out.println("showerase");
+                Intent intent = new Intent(this, Show_Erased.class);
+                startActivity(intent);
+                return true;
+
+            case R.id.show_dates:
+                System.out.println("showdates");
+                return true;
+
+            case R.id.show_help:
+                System.out.println("showhelp");
+                return true;
+
+            case R.id.show_info:
+                System.out.println("showinfo");
+                return true;
+
+            case R.id.action_settings:
+                System.out.println("showsettings");
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }
