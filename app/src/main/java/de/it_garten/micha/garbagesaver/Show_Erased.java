@@ -4,10 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -48,13 +46,14 @@ public class Show_Erased extends AppCompatActivity {
     Date[] garbageDates;
     SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY);
     String garbageDateSetting="";
+    String settingText="";
+    CharSequence settingTextTemp="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Activity parent = this.getParent();
+        super.onCreate(savedInstanceState);
         SharedPreferences sharedPref=getSharedPreferences("prefFile",Context.MODE_PRIVATE);
         sharedPref.getAll();
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show__erased);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -73,7 +72,21 @@ public class Show_Erased extends AppCompatActivity {
                 System.out.println("kann nicht parsen");
                 break;
             }
-            garbageDateSetting+=dates[i]+" | "+sharedPref.getString(sdf.format(garbageDates[i]),"unbelegt")+"\n";
+            settingText="";
+            settingTextTemp="";
+            settingText=sharedPref.getString(sdf.format(garbageDates[i]),"unbelegt");
+            System.out.println(settingText);
+            switch (settingText) {
+                case "erased":
+                    garbageDateSetting += dates[i] + " | " + getString(R.string.erased) + "\n";
+                    break;
+                case "saved":
+                    garbageDateSetting += dates[i] + " | " + getString(R.string.saved) + "\n";
+                    break;
+                default:
+                    garbageDateSetting += dates[i] + " | " + getString(R.string.undefined) + "\n";
+                    break;
+            }
         }
         list.setText(garbageDateSetting);
     }

@@ -8,4 +8,12 @@
     <string name="show_info">Info</string>
     <string name="show_garbage_dates">Zeige Abholtermine</string>
     <string name="title_activity_show__erased">Leerungsliste</string>
+    <string name="title_activity_show__dates">Abholtermine</string>
+    <string name="erased">geleert</string>
+    <string name="saved">gespart</string>
+    <string name="undefined">unbelegt</string>
+    <string name="residualWaste">Restmüll</string>
+    <string name="organicWaste">Biomüll</string>
+    <string name="paperWaste">Papiermüll</string>
+    <string name="yellowWaste">GelberSack</string>
 </resources>

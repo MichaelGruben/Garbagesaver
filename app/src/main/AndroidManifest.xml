@@ -26,6 +26,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.it_garten.micha.garbagesaver.Overview" />
         </activity>
+        <activity
+            android:name=".Show_Dates"
+            android:label="@string/title_activity_show__dates"
+            android:parentActivityName=".Overview"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.it_garten.micha.garbagesaver.Overview" />
+        </activity>
     </application>
 
 </manifest>

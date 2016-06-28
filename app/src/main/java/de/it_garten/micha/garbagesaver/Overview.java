@@ -326,13 +326,14 @@ public class Overview extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.show_erase:
-                System.out.println("showerase");
-                Intent intent = new Intent(this, Show_Erased.class);
-                startActivity(intent);
+                Intent intent_erased = new Intent(this, Show_Erased.class);
+                startActivity(intent_erased);
                 return true;
 
             case R.id.show_dates:
                 System.out.println("showdates");
+                Intent intent_dates = new Intent(this, Show_Dates.class);
+                startActivity(intent_dates);
                 return true;
 
             case R.id.show_help:
