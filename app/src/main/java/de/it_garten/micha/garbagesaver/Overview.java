@@ -1,10 +1,14 @@
 package de.it_garten.micha.garbagesaver;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -15,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -131,6 +136,11 @@ public class Overview extends AppCompatActivity {
             );
         } else {
             set_revert_action_for_index("undefined",lastFreeIndex);
+        }
+        try {
+            checkNotify();
+        } catch (java.text.ParseException e){
+            System.out.println("kann für Notify nicht parsen");
         }
     }
 
@@ -331,21 +341,23 @@ public class Overview extends AppCompatActivity {
                 return true;
 
             case R.id.show_dates:
-                System.out.println("showdates");
                 Intent intent_dates = new Intent(this, Show_Dates.class);
                 startActivity(intent_dates);
                 return true;
 
             case R.id.show_help:
-                System.out.println("showhelp");
+                Intent intent_help = new Intent(this, Show_Help.class);
+                startActivity(intent_help);
                 return true;
 
             case R.id.show_info:
-                System.out.println("showinfo");
+                Intent intent_info = new Intent(this, Show_Info.class);
+                startActivity(intent_info);
                 return true;
 
             case R.id.action_settings:
-                System.out.println("showsettings");
+                Intent intent_settings = new Intent(this, Show_Settings.class);
+                startActivity(intent_settings);
                 return true;
 
             default:
@@ -353,6 +365,170 @@ public class Overview extends AppCompatActivity {
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
 
+        }
+    }
+
+    public void checkNotify() throws java.text.ParseException{
+        String[] datesResidual = {
+                "08.01.2016",
+                "21.01.2016",
+                "04.02.2016",
+                "18.02.2016",
+                "03.03.2016",
+                "17.03.2016",
+                "01.04.2016",
+                "14.04.2016",
+                "28.04.2016",
+                "12.05.2016",
+                "27.05.2016",
+                "09.06.2016",
+                "23.06.2016",
+                "07.07.2016",
+                "21.07.2016",
+                "04.08.2016",
+                "19.08.2016",
+                "01.09.2016",
+                "15.09.2016",
+                "29.09.2016",
+                "13.10.2016",
+                "27.10.2016",
+                "10.11.2016",
+                "24.11.2016",
+                "08.12.2016",
+                "22.12.2016"
+        };
+
+        String[] datesOrganic = {
+                "14.01.2016",
+                "28.01.2016",
+                "11.02.2016",
+                "25.02.2016",
+                "10.03.2016",
+                "23.03.2016",
+                "07.04.2016",
+                "21.04.2016",
+                "06.05.2016",
+                "20.05.2016",
+                "02.06.2016",
+                "16.06.2016",
+                "30.06.2016",
+                "14.07.2016",
+                "28.07.2016",
+                "11.08.2016",
+                "25.08.2016",
+                "08.09.2016",
+                "22.09.2016",
+                "07.10.2016",
+                "20.10.2016",
+                "04.11.2016",
+                "17.11.2016",
+                "01.12.2016",
+                "15.12.2016",
+                "30.12.2016"
+        };
+
+        String[] datesPaper = {
+                "21.01.2016",
+                "16.02.2016",
+                "15.03.2016",
+                "12.04.2016",
+                "10.05.2016",
+                "07.06.2016",
+                "05.07.2016",
+                "02.08.2016",
+                "30.08.2016",
+                "27.09.2016",
+                "25.10.2016",
+                "22.11.2016",
+                "20.12.2016"
+        };
+
+        String[] datesYellow = {
+                "07.01.2016",
+                "03.02.2016",
+                "02.03.2016",
+                "31.03.2016",
+                "27.04.2016",
+                "25.05.2016",
+                "22.06.2016",
+                "20.07.2016",
+                "18.08.2016",
+                "14.09.2016",
+                "12.10.2016",
+                "09.11.2016",
+                "07.12.2016"
+        };
+
+        long today=sdf.parse(sdf.format(new Date())).getTime();
+
+        String notificationText="";
+        String infoTail="";
+        for(int i=3;i>=0;i--){
+            switch (i){
+                case 3:infoTail="in 3 Tagen -- ";
+                    break;
+                case 2:infoTail="in 2 Tagen -- ";
+                    break;
+                case 1:infoTail="morgen -- ";
+                    break;
+                case 0:infoTail="heute -- ";
+                    break;
+            }
+            for (String date: datesResidual) {
+                if(today == sdf.parse(date).getTime() - i * 1000 * 60 * 60 * 24) {
+                    notificationText+= "Restmüll "+infoTail;
+                    break;
+                }
+            }
+            for (String date: datesOrganic) {
+                if(today == sdf.parse(date).getTime() - i * 1000 * 60 * 60 * 24) {
+                    notificationText+= "Biomüll "+infoTail;
+                    break;
+                }
+            }
+            for (String date: datesPaper) {
+                if(today == sdf.parse(date).getTime() - i * 1000 * 60 * 60 * 24) {
+                    notificationText+= "Papiermüll "+infoTail;
+                    break;
+                }
+            }
+            for (String date: datesYellow) {
+                if(today == sdf.parse(date).getTime() - i * 1000 * 60 * 60 * 24) {
+                    notificationText+= "Gelber Sack "+infoTail;
+                    break;
+                }
+            }
+        }
+
+
+        if(notificationText!="") {
+            NotificationCompat.Builder mBuilder =
+                    new NotificationCompat.Builder(this)
+                            .setSmallIcon(R.drawable.ic_garbage_notify)
+                            .setContentTitle("Bald wird Müll abgeholt!")
+                            .setContentText(notificationText);
+            // Creates an explicit intent for an Activity in your app
+            Intent resultIntent = new Intent(this, Show_Dates.class);
+
+            // The stack builder object will contain an artificial back stack for the
+            // started Activity.
+            // This ensures that navigating backward from the Activity leads out of
+            // your application to the Home screen.
+            TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+            // Adds the back stack for the Intent (but not the Intent itself)
+            stackBuilder.addParentStack(Show_Dates.class);
+            // Adds the Intent that starts the Activity to the top of the stack
+            stackBuilder.addNextIntent(resultIntent);
+            PendingIntent resultPendingIntent =
+                    stackBuilder.getPendingIntent(
+                            0,
+                            PendingIntent.FLAG_UPDATE_CURRENT
+                    );
+            mBuilder.setContentIntent(resultPendingIntent);
+            NotificationManager mNotificationManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            // mId allows you to update the notification later on.
+            mNotificationManager.notify(0, mBuilder.build());
         }
     }
 }

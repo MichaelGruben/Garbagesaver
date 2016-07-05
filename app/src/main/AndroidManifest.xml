@@ -35,6 +35,30 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.it_garten.micha.garbagesaver.Overview" />
         </activity>
+        <activity android:name=".Show_Help"
+            android:label="@string/title_activity_show__help"
+            android:parentActivityName=".Overview"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.it_garten.micha.garbagesaver.Overview" />
+        </activity>
+        <activity android:name=".Show_Info"
+            android:label="@string/title_activity_show__info"
+            android:parentActivityName=".Overview"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.it_garten.micha.garbagesaver.Overview" />
+        </activity>
+        <activity
+            android:name=".Show_Settings"
+            android:label="@string/title_activity_show__settings"
+            android:parentActivityName=".Overview">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.it_garten.micha.garbagesaver.Overview" />
+        </activity>
     </application>
 
 </manifest>
