@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,7 +18,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -137,11 +135,12 @@ public class Overview extends AppCompatActivity {
         } else {
             set_revert_action_for_index("undefined",lastFreeIndex);
         }
+        /*
         try {
             checkNotify();
         } catch (java.text.ParseException e){
             System.out.println("kann für Notify nicht parsen");
-        }
+        }*/
     }
 
     private void set_text_to_field(TextView object, String text){
@@ -367,7 +366,7 @@ public class Overview extends AppCompatActivity {
 
         }
     }
-
+/*
     public void checkNotify() throws java.text.ParseException{
         String[] datesResidual = {
                 "08.01.2016",
@@ -458,7 +457,6 @@ public class Overview extends AppCompatActivity {
                 "09.11.2016",
                 "07.12.2016"
         };
-
         long today=sdf.parse(sdf.format(new Date())).getTime();
 
         String notificationText="";
@@ -530,5 +528,5 @@ public class Overview extends AppCompatActivity {
             // mId allows you to update the notification later on.
             mNotificationManager.notify(0, mBuilder.build());
         }
-    }
+    }*/
 }
