@@ -17,7 +17,7 @@
     <string name="residualWaste">Restmüll</string>
     <string name="organicWaste">Biomüll</string>
     <string name="paperWaste">Papiermüll</string>
-    <string name="yellowWaste">GelberSack</string>
+    <string name="yellowWaste">Gelber Sack</string>
     <string name="title_activity_show__settings">Einstellungen</string>
 
     <!-- Strings related to Settings -->
@@ -77,4 +77,6 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="noDate">kein Termin</string>
+    <string name="today">Heute</string>
 </resources>
