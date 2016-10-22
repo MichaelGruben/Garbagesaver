@@ -19,13 +19,29 @@ tools:context="de.it_garten.micha.garbagesaver.Show_Info">
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="60dp"
+        android:paddingLeft="20dp"
+        android:text="Platzhalter"/>
+    <Button
+        android:id="@+id/downloadbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Download Update"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12sp"
         android:id="@+id/show_dates_list"
-        android:paddingTop="60dp"
         android:paddingLeft="20dp"
         android:text="v.3 (Celluloseabfall):\n\tneues Zeuch"/>
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -14,34 +14,7 @@ import java.util.Locale;
 
 public class Show_Erased extends AppCompatActivity {
 
-    String[] dates = {
-            "08.01.2016",
-            "21.01.2016",
-            "04.02.2016",
-            "18.02.2016",
-            "03.03.2016",
-            "17.03.2016",
-            "01.04.2016",
-            "14.04.2016",
-            "28.04.2016",
-            "12.05.2016",
-            "27.05.2016",
-            "09.06.2016",
-            "23.06.2016",
-            "07.07.2016",
-            "21.07.2016",
-            "04.08.2016",
-            "19.08.2016",
-            "01.09.2016",
-            "15.09.2016",
-            "29.09.2016",
-            "13.10.2016",
-            "27.10.2016",
-            "10.11.2016",
-            "24.11.2016",
-            "08.12.2016",
-            "22.12.2016"
-    };
+    String[] dates = Garbage_Dates.residualDates;
 
     Date[] garbageDates;
     SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY);

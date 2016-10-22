@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Overview">
+        <activity android:name=".Show_Overview">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,44 +18,44 @@
         <activity
             android:name=".Show_Erased"
             android:label="@string/title_activity_show__erased"
-            android:parentActivityName=".Overview"
+            android:parentActivityName=".Show_Overview"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.it_garten.micha.garbagesaver.Overview" />
+                android:value=".Show_Overview" />
         </activity>
         <activity
             android:name=".Show_Dates"
             android:label="@string/title_activity_show__dates"
-            android:parentActivityName=".Overview"
+            android:parentActivityName=".Show_Overview"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.it_garten.micha.garbagesaver.Overview" />
+                android:value=".Show_Overview" />
         </activity>
         <activity android:name=".Show_Help"
             android:label="@string/title_activity_show__help"
-            android:parentActivityName=".Overview"
+            android:parentActivityName=".Show_Overview"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.it_garten.micha.garbagesaver.Overview" />
+                android:value=".Show_Overview" />
         </activity>
         <activity android:name=".Show_Info"
             android:label="@string/title_activity_show__info"
-            android:parentActivityName=".Overview"
+            android:parentActivityName=".Show_Overview"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.it_garten.micha.garbagesaver.Overview" />
+                android:value=".Show_Overview" />
         </activity>
         <activity
             android:name=".Show_Settings"
             android:label="@string/title_activity_show__settings"
-            android:parentActivityName=".Overview">
+            android:parentActivityName=".Show_Overview">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.it_garten.micha.garbagesaver.Overview" />
+                android:value=".Show_Overview" />
         </activity>
         <receiver
             android:enabled="true"
